@@ -10,8 +10,8 @@ rooms = [
 # Create your views here.
 
 def home(req):
-    return render(req, 'home.html')
+    context = {'rooms': rooms}
+    return render(req, 'base/home.html', context)
 
 def room(req):
-    context = {'rooms': rooms}
-    return render(req, 'room.html', context)
+    return render(req, 'base/room.html')
