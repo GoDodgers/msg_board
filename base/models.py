@@ -8,7 +8,7 @@ class Room(models.Model):
     # topic =
     # host = 
     # participants =
-    updated = models.DateTimeField(auto=True)
+    updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
