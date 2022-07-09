@@ -1,24 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-rooms = [
-    {'id': 1, 'name': 'python is awesome!'},
-    {'id': 2, 'name': 'javascript is awesomeer!'},
-    {'id': 3, 'name': 'coding templates'},
-]
+from .models import Room
 
 # Create your views here.
 
 def home(req):
-    context = {'rooms': rooms}
+    rooms = Room.objects.all()
+    # rooms = Room.objects.get()
+    # rooms = Room.objects.filter()
+    # rooms = Room.objects.exclude()
+    context = { 'rooms': rooms }
     return render(req, 'base/home.html', context)
 
 def room(req, pk):
-    room = None
-    context = {'rooms': rooms, 'current_room': room}
-
-    for i in rooms:
-        if i['id'] == int(pk):
-             context['current_room'] =  i
-
+    room = Room.objects.get(id=pk)
+    context = { 'current_room': room } 
     return render(req, 'base/room.html', context)
