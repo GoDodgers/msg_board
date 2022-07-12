@@ -5,7 +5,12 @@ from .forms import RoomForm
 # Create your views here.
 
 def home(req):
-    rooms = Room.objects.all()
+    query = req.GET.get('q')
+
+    if query is None:
+        query = ''
+
+    rooms = Room.objects.filter(topic__name__icontains=query)
     topics = Topic.objects.all()
     # rooms = Room.objects.get()
     # rooms = Room.objects.filter()
