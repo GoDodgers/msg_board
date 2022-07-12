@@ -22,9 +22,9 @@ def home(req):
     return render(req, 'base/home.html', context)
 
 def room(req, pk):
-    room = Room.objects.get(id=pk)
-    context = { 'current_room': room } 
-    return render(req, 'base/room.html', context)
+    return render(req, 'base/room.html', {
+        'current_room': Room.objects.get(id=pk)
+    })
 
 def create_room(req):
     if req.method == 'POST':
