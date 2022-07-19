@@ -6,6 +6,11 @@ from .forms import RoomForm
 
 # Create your views here.
 
+
+def login_form(req):
+    
+    return render(req, 'base/login_form.html', {})
+
 def home(req):
     query = req.GET.get('q')
 
