@@ -1,4 +1,6 @@
+import imp
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -10,14 +12,23 @@ def home(req):
     if query is None:
         query = ''
 
-    rooms = Room.objects.filter(topic__name__icontains=query)
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=query) |
+        Q(name__icontains=query) |
+        Q(description__icontains=query) 
+    )
+
     topics = Topic.objects.all()
     # rooms = Room.objects.get()
     # rooms = Room.objects.filter()
     # rooms = Room.objects.exclude()
+
+    room_count = rooms.count()
+
     context = {
         'rooms': rooms,
-        'topics': topics
+        'topics': topics,
+        'room_count': room_count
     }
     return render(req, 'base/home.html', context)
 

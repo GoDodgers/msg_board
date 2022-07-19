@@ -21,14 +21,15 @@
         </div>
 
         {% for topic in topics %}
-            <div>
-                <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-            </div>
+        <div>
+            <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+        </div>
         {% endfor %}
 
     </dir>
 
     <div class="middle-container">
+        <h5>{{room_count}} Rooms Available</h5>
         <a href="{% url 'create_room' %}"> Create Room </a>
         <hr>
 
