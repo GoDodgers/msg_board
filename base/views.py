@@ -1,14 +1,30 @@
-import imp
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Room, Topic
 from .forms import RoomForm
 
 # Create your views here.
 
+# messages.add_message
+# messages.debug(request, '%s SQL statements were executed.' % count)
+# messages.info(request, 'Three credits remain in your account.')
+# messages.success(request, 'Profile details updated.')
+# messages.warning(request, 'Your account expires in three days.')
+# messages.error(request, 'Document deleted.')
 
 def login_form(req):
+    if req.method == "POST":
+        username = req.POST.get('username')
+        password = req.POST.get('password')
     
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(req, "User Does Not Exist")
+        
+
     return render(req, 'base/login_form.html', {})
 
 def home(req):
