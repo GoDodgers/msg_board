@@ -36,6 +36,10 @@ def login_form(req):
 
     return render(req, 'base/login_form.html', {})
 
+def logout_user(req):
+    logout(req)
+    return redirect('home')
+
 def home(req):
     query = req.GET.get('q')
 
