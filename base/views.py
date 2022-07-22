@@ -1,7 +1,9 @@
+from email import message
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -20,10 +22,17 @@ def login_form(req):
         password = req.POST.get('password')
     
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=username) 
         except:
             messages.error(req, "User Does Not Exist")
         
+        user = authenticate(req, username=username, password=password)
+
+        if user is not None:
+            login(req, user)
+            return redirect('home')
+        else:
+            messages.error(req, 'password or username does not exist')
 
     return render(req, 'base/login_form.html', {})
 
